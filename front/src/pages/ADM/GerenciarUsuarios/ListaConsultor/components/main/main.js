@@ -23,7 +23,17 @@ export default function Main() {
         GETConsultores()
     }, [])
 
-    const confirmDelete = () => {
+    async function inativarUsuario(id){
+        const response = await axios.put(`/deletarUsuario/${id}`)
+
+        if (response.data.Sucesso) {
+            GETConsultores()
+        } else {
+            Alert.alert("Erro", `${response.data.msg}: ${response.data.Erro}`)
+        }
+    }
+
+    const confirmDelete = (id) => {
         Alert.alert(
             "Confirmar exclusão",
             "Tem certeza de que deseja excluir este consultor?",
@@ -32,7 +42,7 @@ export default function Main() {
                     text: "Cancelar",
                     style: "cancel"
                 },
-                { text: "Excluir", onPress: () => console.log("Consultor excluído") }
+                { text: "Excluir", onPress: () => inativarUsuario(id) }
             ],
             { cancelable: false }
         );
@@ -48,12 +58,12 @@ export default function Main() {
                 </TouchableOpacity>
                 <Text style={styles.title}>Lista de consultores</Text>
             </View>
-            {listaConsultor.map((item, index) => (
+            {listaConsultor.map((item) => (
                 <View style={styles.container2}>
                     <View style={styles.campo1}>
                         <Text style={styles.texto2}>{item.nome}</Text>
                         <View style={styles.iconContainer}>
-                            <TouchableOpacity onPress={confirmDelete}>
+                            <TouchableOpacity onPress={confirmDelete(item._id)}>
                                 <Image source={require('../../img/excluir.png')} style={styles.excluir} />
                             </TouchableOpacity>
                             <TouchableOpacity>

@@ -41,6 +41,7 @@ export interface ParceiroInterface {
     primeiroMembro: string;                 // First Membership
     slogan: string;                         // Slogan
     ExpertisesParceiro: ExpertiseInterface[];
+    status: boolean;
 }
 
 const CursosRealizadosSchema = new mongoose.Schema({
@@ -79,7 +80,8 @@ const ParceiroSchema = new mongoose.Schema({
     OPNTrack: {type: String, required: true},               // OPN Track
     primeiroMembro: {type: String, required: true},         // First Membership
     slogan: {type: String, required: true},                 // Slogan
-    ExpertisesParceiro: [ExpertisesParceiroSchema]          // Lista de cursos realizados (de qualquer expertise)
+    ExpertisesParceiro: [ExpertisesParceiroSchema],          // Lista de cursos realizados (de qualquer expertise)
+    status: {type: Boolean, default: true}
 })
 
 export const Parceiro = mongoose.model<ParceiroInterface>('Parceiro', ParceiroSchema)
