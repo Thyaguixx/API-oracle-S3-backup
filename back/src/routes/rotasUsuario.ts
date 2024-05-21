@@ -1,5 +1,5 @@
 import express from 'express';
-import { DELUsuario, GETQuantidadeConsultores, GETUsuarioByID, GETUsuarios, Login, SETUsuario } from '../services/usuarioServices';
+import { DELUsuario, GETConsultores, GETQuantidadeConsultores, GETUsuarioByID, GETUsuarios, Login, SETUsuario } from '../services/usuarioServices';
 
 const routerUsuario = express.Router();
 
@@ -88,5 +88,16 @@ routerUsuario.post('/login', async (req,res) => {
     }
     
 })
+
+routerUsuario.get('/GETConsultores', async (req, res) => {
+    const result = await GETConsultores()
+
+    if (result && result.Sucesso) {
+        const consultores = result.retornoUsuarios
+        res.send({ Sucesso: true, Consultores: consultores })
+    } else {
+        res.send({ msg: "Erro ao buscar consultores.", Erro: result })
+    }
+});
 
 export default routerUsuario;

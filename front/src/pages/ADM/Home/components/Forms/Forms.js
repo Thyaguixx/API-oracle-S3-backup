@@ -103,7 +103,7 @@ export default function Forms() {
         <TouchableOpacity
           style={styles.buttonMenu}
           onPress={() => {
-            button();
+            navigate('GerenciarUsuarios')
           }}>
           <View style={styles.buttonContainer}>
             <View style={styles.buttonImage}>

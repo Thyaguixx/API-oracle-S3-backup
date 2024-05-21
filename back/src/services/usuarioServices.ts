@@ -75,4 +75,16 @@ async function Login(dados) {
     }
 }
 
-export {SETUsuario, GETUsuarioByID, GETUsuarios, DELUsuario, Login, GETQuantidadeConsultores}
+async function GETConsultores() {
+    try{
+        const consultores = await Usuario.find({ tipoUsuario: 'ConsultorAlianca' }).lean()
+        if (consultores){
+            return {Sucesso: true, retornoUsuarios: consultores}
+        }
+    } catch (erro) {
+        console.log(erro);
+        return {Sucesso: false}
+    }
+}
+
+export {SETUsuario, GETUsuarioByID, GETUsuarios, DELUsuario, Login, GETQuantidadeConsultores, GETConsultores}
