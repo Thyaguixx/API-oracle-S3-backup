@@ -4,7 +4,8 @@ import styles from "./style";
 import navigate from '../../../../../../../RootNavigation';
 import axios from "../../../../../../Axios/axiosInstancia"
 
-export default function Main() {
+export default function Main(params) {
+    const tipoUsuario = params.params
     const [listaConsultor, setListaConsultor] = React.useState([]);
 
     const GETConsultores = async () => {
@@ -23,7 +24,7 @@ export default function Main() {
         GETConsultores()
     }, [])
 
-    async function inativarUsuario(id){
+    const inativarUsuario = async (id) => {
         const response = await axios.put(`/deletarUsuario/${id}`)
 
         if (response.data.Sucesso) {
@@ -42,7 +43,7 @@ export default function Main() {
                     text: "Cancelar",
                     style: "cancel"
                 },
-                { text: "Excluir", onPress: () => inativarUsuario(id) }
+                { text: "Excluir", onPress: async () => await inativarUsuario(id) }
             ],
             { cancelable: false }
         );
@@ -51,7 +52,7 @@ export default function Main() {
     return (
         <ScrollView style={styles.whiteBackground}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => {navigate('GerenciarUsuarios')}}>
+                <TouchableOpacity onPress={() => {navigate('GerenciarUsuarios', {TipoUsuario: tipoUsuario})}}>
                     <Image
                         style={styles.arrow}
                         source={require('../../img/arrow.png')} />
@@ -59,11 +60,11 @@ export default function Main() {
                 <Text style={styles.title}>Lista de consultores</Text>
             </View>
             {listaConsultor.map((item) => (
-                <View style={styles.container2}>
+                <View style={styles.container2} key={item._id}>
                     <View style={styles.campo1}>
                         <Text style={styles.texto2}>{item.nome}</Text>
                         <View style={styles.iconContainer}>
-                            <TouchableOpacity onPress={confirmDelete(item._id)}>
+                            <TouchableOpacity onPress={() => confirmDelete(item._id)}>
                                 <Image source={require('../../img/excluir.png')} style={styles.excluir} />
                             </TouchableOpacity>
                             <TouchableOpacity>

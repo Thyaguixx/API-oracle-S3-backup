@@ -3,11 +3,12 @@ import { StyleSheet, View} from 'react-native';
 import Title from './components/title/title';
 import Step1Parceiro from './step-1/step1';
 
-export default function EdicaoParceiro() {
+export default function EdicaoParceiro({ route }) {
+    const { TipoUsuario, ParceiroJSON } = route.params;
+    
     return (
         <View style={styles.body}>
-            <Title/>
-            <Step1Parceiro/>
+            <Step1Parceiro tipoUsuario={TipoUsuario} dadosParceiroJSON={ParceiroJSON}/>
         </View>
     );
 }

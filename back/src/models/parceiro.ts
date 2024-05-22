@@ -17,10 +17,17 @@ export interface ExpertiseInterface {
     cursosRealizados: CursosRealizados[];
 }
 
+interface FilhosCursosRealizados {
+    nome: string;
+    descricao: string;
+    idFilhoCurso: mongoose.Schema.Types.ObjectId;
+}
+
 interface CursosRealizados {
     nome: string;
     descricao: string;
     idCurso: mongoose.Schema.Types.ObjectId;
+    filhosCursoRealizados: FilhosCursosRealizados[]
 }
 
 export interface ParceiroInterface {
@@ -44,10 +51,17 @@ export interface ParceiroInterface {
     status: boolean;
 }
 
-const CursosRealizadosSchema = new mongoose.Schema({
+const FilhosCursosRealizadosSchema = new mongoose.Schema({
     idCurso:{type: mongoose.Schema.Types.ObjectId, required: false},
     nome: { type: String, required: false },
     descricao: { type: String, required: false }
+})
+
+const CursosRealizadosSchema = new mongoose.Schema({
+    idCurso:{type: mongoose.Schema.Types.ObjectId, required: false},
+    nome: { type: String, required: false },
+    descricao: { type: String, required: false },
+    filhosCursosRealizados: [FilhosCursosRealizadosSchema]
 })
 
 const ExpertisesParceiroSchema = new mongoose.Schema({

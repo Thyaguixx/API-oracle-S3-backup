@@ -71,7 +71,7 @@ routerUsuario.put("/deletarUsuario/:id", async (req, res) => {
     if (result?.Sucesso) {
         res.send({ msg: "Usuário deletado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
     } else {
-        res.send({ msg: "Falha ao deletar usuário.", Sucesso: result?.Sucesso, Retorno: result?.Erro })
+        res.send({ msg: "Falha ao deletar usuário.", Sucesso: result?.Sucesso, Erro: result?.Erro })
     }
 });
 
